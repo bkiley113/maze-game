@@ -1,0 +1,13 @@
+﻿  Source.cpp
+C:\Temp\TextTools\TextTools\Source.cpp(24,8): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  syntax error: missing ';' before identifier 'S'
+C:\Temp\TextTools\TextTools\Source.cpp(42,2): error C2065: 'point': undeclared identifier
+C:\Temp\TextTools\TextTools\Source.cpp(42,8): error C2146: syntax error: missing ';' before identifier 'p'
+C:\Temp\TextTools\TextTools\Source.cpp(42,8): error C2065: 'p': undeclared identifier
+C:\Temp\TextTools\TextTools\Source.cpp(42,12): error C2065: 'S': undeclared identifier
+C:\Temp\TextTools\TextTools\Source.cpp(43,11): error C2065: 'p': undeclared identifier
+C:\Temp\TextTools\TextTools\Source.cpp(43,23): error C2065: 'p': undeclared identifier
+C:\Temp\TextTools\TextTools\Source.cpp(53,3): error C2065: 'S': undeclared identifier
+C:\Temp\TextTools\TextTools\Source.cpp(59,3): error C2065: 'S': undeclared identifier
+C:\Temp\TextTools\TextTools\Source.cpp(65,3): error C2065: 'S': undeclared identifier
+C:\Temp\TextTools\TextTools\Source.cpp(106,1): warning C4326: return type of 'main' should be 'int' instead of 'void'

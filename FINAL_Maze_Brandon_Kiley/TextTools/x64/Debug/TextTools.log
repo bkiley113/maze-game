@@ -1,0 +1,5 @@
+﻿  Source.cpp
+C:\Temp\TextTools\TextTools\Source.cpp(16,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  screens.cpp
+  Generating Code...
+  TextTools.vcxproj -> C:\Temp\TextTools\x64\Debug\TextTools.exe

@@ -1,0 +1,238 @@
+#include "TextDraw.h"
+
+//BELOW ARE THE HEADER FILES I HAVE MADE FOR THIS PROJECT
+#include "screens.h"
+#include "InitialBoard.h"
+#include "DisplayTools.h"
+#include "GameRun.h"
+
+/* SHORT DESCRIPTION OF MY CLASSES
+*InitialBoard class creates the first instance of the game board, as well as loads the cards
+
+* DisplayTools class has all of the tools for output in it
+
+* Screens class creates title screen
+* GameRun class handles all runtime functionalities of the game
+
+*/
+
+void main()
+{
+ 
+    Screen titletime;
+    titletime.TitleScreen(); //create title screen
+    InitialBoard Game; //cards are loaded
+    
+    GameRun GameTime; //cards are displayed
+    GameTime.Go(); //game is launched!
+}
+
+#include "GameRun.h"
+//
+//void GameRun::Go() //FUNCTION THAT CONTAINS INFINITE LOOP TO DISPLAY GAME
+//{
+//    MyMouse M;
+//
+//    DisplayBoard();
+//
+//    bool flag = true;
+//    while (flag)
+//    {
+//
+//        //BELOW I MODIFIED THE FUNCTION GIVEN BY PROF ALNAJI TO WORK WITH MY CLASSES
+//
+//        FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+//        M.ReadMouseInput();
+//
+//        switch (M.InputRecord.EventType) {
+//        case MOUSE_EVENT:
+//            if (M.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
+//            {
+//                int X = M.InputRecord.Event.MouseEvent.dwMousePosition.X;
+//                int Y = M.InputRecord.Event.MouseEvent.dwMousePosition.Y;
+//
+//                if ((X >= 5 && X < 21) && (Y >= 6 && Y < 16))
+//                {
+//                    ShowandTrack(1, 1);
+//                }
+//                else if ((X >= 21 && X < 37) && (Y >= 6 && Y < 16))
+//                {
+//                    ShowandTrack(2, 1);
+//                }
+//                else if ((X >= 37 && X < 53) && (Y >= 6 && Y < 16))
+//                {
+//                   ShowandTrack(3,1);
+//                }
+//                else if ((X >= 53 && X < 70) && (Y >= 6 && Y < 16))
+//                {
+//                    ShowandTrack(4,1);
+//                }
+//                else if ((X >= 5 && X < 21) && (Y >= 17 && Y < 27))
+//                {
+//                    ShowandTrack(5,1);
+//                }
+//                else if ((X >= 21 && X < 37) && (Y >= 17 && Y < 27))
+//                {
+//                    ShowandTrack(6,1);
+//                }
+//                else if ((X >= 37 && X < 53) && (Y >= 17 && Y < 27))
+//                {
+//                    ShowandTrack(7,2);
+//                }
+//                else if ((X >= 53 && X < 70) && (Y >= 17 && Y < 27))
+//                {
+//                    ShowandTrack(8,2);
+//                }
+//                else if ((X >= 5 && X < 21) && (Y >= 28 && Y < 39))
+//                {
+//                    ShowandTrack(9,2);
+//                }
+//                else if ((X >= 21 && X < 37) && (Y >= 28 && Y < 39))
+//                {
+//                    ShowandTrack(10,2);
+//                }
+//                else if ((X >= 37 && X < 53) && (Y >= 28 && Y < 39))
+//                {
+//                    ShowandTrack(11,2);
+//                }
+//                else if ((X >= 53 && X < 70) && (Y >= 28 && Y < 39))
+//                {
+//                    ShowandTrack(12,2);
+//                }
+//
+//            }
+//
+//        }
+//
+//        //CHECKS IF ALL CARDS ARE DEAD. IF THEY ARE, YOU WIN!!
+//        if (deadcards[0] == 0 && deadcards[1] == 1 && deadcards[2] == 1 && deadcards[3] == 1 && deadcards[4] == 1 &&
+//            deadcards[5] == 1 && deadcards[6] == 1 && deadcards[7] == 1 && deadcards[8] == 1 && deadcards[9] == 1 &&
+//            deadcards[10] == 1 && deadcards[11] == 1 && deadcards[12] == 1)
+//        {
+//            Victory(flag);
+//       
+//        }
+//
+//    }
+//}
+//
+//void GameRun::DisplayBoard() // FUNCTION TO SHOW CARDS FOR A FEW SECONDS, THEN FLIPS THEM ALL
+//{
+//    for (int i = 0; i < 6; i++)
+//    {
+//        int g = cardTop[i];
+//        DisplayAtLocation(i + 1, card[g]);
+//    }
+//    for (int i = 0; i < 6; i++)
+//    {
+//        int f = cardBottom[i];
+//        DisplayAtLocation(i + 7, card[f]);
+//    }
+//    Sleep(5000);
+//    for (int i = 0; i <= 12; i++)
+//    {
+//        DisplayAtLocation(i, card[0]);
+//    }
+//    DisplayCard(110, 15, 15, 32, card[15]);
+//}
+//
+////FUNCTION THAT KEEPS A COUNTER OF WHICH CARD WAS PRESSED
+////ALSO TRACKS WHICH CARDS ARE DEAD AND CHOOSES TO DISPLAY A DEAD OR LIVE CARD
+//void GameRun::ShowandTrack(int placeno, int topBottom) 
+//{
+//    if (topBottom == 1)
+//    {
+//        n = cardTop[placeno - 1];
+//    }
+//    else if (topBottom == 2)
+//    {
+//        n = cardBottom[placeno - 7];
+//    }
+//
+//    if (deadcards[placeno] != 1)
+//    {
+//        counter++;
+//        moves++;
+//        C.gotoxy(130, 17);
+//        cout << moves;
+//        if (counter == 1)
+//        {
+//            firstclick = n;
+//            firstplace = placeno;
+//        }
+//        else if (counter == 2)
+//        {
+//            secondclick = n;
+//            secondplace = placeno;
+//        }
+//        DisplayAtLocation(placeno, card[n]);
+//    }
+//    else
+//        DisplayAtLocation(placeno, card[14]);
+//
+//    if (counter == 2)
+//    {
+//        if (firstclick == secondclick && firstplace != secondplace)
+//        {
+//            Sleep(1000);
+//            DisplayAtLocation(firstplace, card[14]);
+//            deadcards[firstplace] = 1;
+//            DisplayAtLocation(secondplace, card[14]);
+//            deadcards[secondplace] = 1;
+//            firstplace = secondplace = firstclick = secondclick = counter = 0;
+//        }
+//        else if (firstplace == secondplace)
+//        {
+//            counter = counter - 1;
+//        }
+//        else if (firstclick != secondclick)
+//        {
+//            Sleep(1000);
+//            DisplayAtLocation(firstplace, card[0]);
+//            DisplayAtLocation(secondplace, card[0]);
+//            firstplace = secondplace = firstclick = secondclick = counter = 0;
+//        }
+//            
+//    }
+//}
+//
+////FUNCTION THAT DISPLAYS VICTORY SCREEN UPON COMPLETION OF THE GAME
+//bool GameRun::Victory(bool flagg)
+//{
+//    system("cls");
+//
+//    C.gotoxy(45, 10);
+//    Colors Color;
+//    Color.SetColor(0, 15);
+//
+//cout << "_____.___.__      __.__._.._.._.._.";
+//C.gotoxy(45, 11);
+//cout << "\\__  |   | ____  __ __       /  \\    /  \\__| ____   | | | | | | | | ";
+//C.gotoxy(45, 12);
+//cout << " /   |   |/  _ \\|  |  \\      \\   \\/\\/   /  |/    \\  | | | | | | | | ";
+//C.gotoxy(45, 13);
+//cout << " \\____   (  <_> )  |  /       \\        /|  |   |  \\  \\|  \\|  \\|  \\| ";
+//C.gotoxy(45, 14);
+//cout << " / ______|\\____/|____/         \\__/\\  / |__|___|  /  __  __  __  __ ";
+//C.gotoxy(45, 15);
+//cout << " \\/                                 \\/          \\/   \\/  \\/  \\/  \\/ ";
+//C.gotoxy(62, 16);
+//cout << "Number of moves: " << moves;
+//C.gotoxy(63, 17);
+//if (moves <= 18)
+//{
+//    cout << "Scoring rating: GREAT!!!";
+//}
+//else if (moves > 18 && moves <= 24)
+//{
+//    cout << "Scoring rating: GOOD";
+//}
+//else if (moves > 24 && moves <= 36)
+//{
+//    cout << "Scoring rating: MEH...";
+//}
+//else if (moves > 36)
+//cout << "Scoring rating: YIKES!!!" << endl;
+//    flagg = false;
+//    return flagg;
+//}

@@ -1,0 +1,264 @@
+#include <iostream>
+#include <string>
+#include "Coordinates.h"
+#include "TextDraw.h"
+
+using namespace std;
+
+bool flag1, flag2, flag3, flag4;
+
+int board[25][50]
+{
+	{1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2},
+	{1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,0,1,2,1,2,0,0,0,0,0,0,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,2},
+	{0,0,0,0,1,2,1,2,1,2,1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,1,0,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1},
+	{1,2,1,0,0,0,0,1,2,1,2,1,2,1,2,1,0,1,2,1,2,1,2,1,2,1,0,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1},
+	{1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,1,0,1,2,1,2,1,2,4,0,0,0,0,0,0,0,0,0,0,01,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2},
+	{1,2,1,2,1,2,0,3,0,0,0,0,1,2,1,2,0,1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,1,0,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2},
+	{1,2,1,2,1,2,1,2,1,2,1,0,1,2,1,2,0,1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,1,0,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2},
+	{1,2,1,2,1,2,1,2,1,2,1,0,1,2,1,2,0,1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,1,0,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2},
+	{1,2,1,2,1,2,1,2,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,2,1,2,1,0,0,0,1,2,1,2,1,2,1,0,0,0,0,0,1,2,1,2},
+	{1,2,1,2,1,2,1,2,1,2,1,2,1,2,0,1,2,1,2,1,2,1,0,1,2,1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,1,0,1,2,1,0,1,2,1,2},
+	{1,2,1,2,1,2,1,2,1,2,1,2,1,2,0,1,2,1,2,1,2,1,0,1,2,1,2,1,2,1,2,0,0,0,0,0,0,0,0,1,2,0,1,2,1,0,0,1,2,1},
+	{1,2,1,2,1,2,1,2,1,0,0,1,2,1,0,1,2,1,2,1,2,1,0,1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,0,0,0,0,1,2,1,2,0,1,2,1},
+	{1,2,1,0,0,0,0,0,1,2,0,1,2,1,0,1,2,1,2,1,2,1,0,1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,0,1,2,1},
+	{1,2,1,0,1,2,1,0,1,2,0,0,0,0,0,1,2,1,2,1,2,1,0,1,2,1,2,1,2,0,0,0,0,0,5,0,0,0,0,0,0,1,2,1,2,1,0,1,2,1},
+	{1,2,1,0,1,2,1,0,1,2,1,2,1,2,1,2,1,2,1,2,1,2,0,1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,1,2,0,1,2,1,2,1,0,1,2,1},
+	{1,2,1,0,1,2,1,0,0,0,0,0,0,0,0,1,2,1,2,1,2,1,0,0,0,0,0,0,1,0,1,2,1,2,1,2,1,2,1,2,0,0,1,2,1,2,0,1,2,1},
+	{1,2,1,0,1,2,1,0,1,2,1,2,1,2,0,1,2,1,2,1,2,1,0,1,2,1,2,0,1,0,1,2,1,2,1,2,1,2,1,2,1,0,1,2,1,2,1,2,1,2},
+	{1,2,1,0,1,2,1,0,1,2,1,2,1,2,0,0,0,1,2,1,2,1,0,1,2,1,2,0,1,0,1,2,1,2,1,2,1,2,1,2,1,0,1,2,1,2,1,2,1,2},
+	{1,2,1,2,1,2,1,0,1,2,1,2,1,2,1,2,0,1,2,1,2,1,0,1,2,1,2,0,0,0,1,2,1,2,1,2,1,2,1,2,1,0,0,0,0,0,1,2,1,2},
+	{1,2,1,2,1,2,1,0,1,2,1,2,1,2,0,0,0,0,0,0,0,0,0,1,2,1,2,1,0,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,0,1,2,1,2},
+	{1,2,1,2,1,2,1,0,1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,1,0,1,2,1,0,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,6,1,2,1,2},
+	{1,2,1,2,0,0,0,0,1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,1,0,1,2,1,0,1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,1,0,1,2,1,2},
+	{1,2,1,2,0,1,2,1,2,1,2,1,2,1,0,1,2,1,2,1,2,1,2,1,0,1,2,1,0,1,2,1,2,1,2,0,1,2,1,2,1,2,1,2,1,0,0,1,2,1},
+	{1,2,1,0,0,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,1,2,1,2,1,2,1,2,1,2,0,0,0,0},
+	{1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2},
+
+};
+
+class point
+{
+public:
+	int x, y;
+};
+
+class Stack
+{
+public:
+	point arr[100000];
+	int H;
+	void push(int x, int y)
+	{
+		arr[H].x = x;
+		arr[H].y = y;
+		H++;
+	}
+
+	point pop()
+	{
+		point p;
+		H--;
+		return arr[H];
+	}
+
+	point peek(int f)
+	{
+		return arr[H - f];
+	}
+};
+
+Coordinates coor;
+
+int  xpos, ypos;
+Stack S;
+
+bool IDidNOTComeFrom(int x, int y)
+{
+	point p = S.peek(1);
+	if (x == p.x && y == p.y)
+		return false;
+	return true;
+}
+
+void isStar()
+{
+	if (board[ypos][xpos] == 3)
+		flag1 = true;
+	if (board[ypos][xpos] == 4)
+		flag2 = true;
+	if (board[ypos][xpos] == 5)
+		flag3 = true;
+	if (board[ypos][xpos] == 6)
+		flag4 = true;
+}
+
+void MoveMouse()
+{
+	//is right empty
+	if ((board[ypos][xpos + 1] == 0 || board[ypos][xpos + 1] == 3 || board[ypos][xpos + 1] == 4 || board[ypos][xpos + 1] == 5 || board[ypos][xpos + 1] == 6) && IDidNOTComeFrom(xpos+1, ypos))
+	{
+		S.push(xpos, ypos);
+		xpos++;
+	}
+	//up
+	else if ((board[ypos-1][xpos] == 0 || board[ypos-1][xpos] == 3 || board[ypos-1][xpos] == 4 || board[ypos-1][xpos] == 5 || board[ypos - 1][xpos] == 6) && IDidNOTComeFrom(xpos , ypos-1))
+	{
+		S.push(xpos, ypos);
+		ypos--;
+	}
+	//left
+	else if ((board[ypos][xpos - 1] == 0 || board[ypos][xpos - 1] == 3 || board[ypos][xpos - 1] == 4 || board[ypos][xpos - 1] == 5 || board[ypos][xpos - 1] == 6) && IDidNOTComeFrom(xpos - 1, ypos))
+	{
+		S.push(xpos, ypos);
+		xpos--;
+	}
+	//down
+	else if ((board[ypos + 1][xpos] == 0 || board[ypos + 1][xpos] == 3 || board[ypos + 1][xpos] == 4 || board[ypos + 1][xpos] == 5 || board[ypos + 1][xpos] == 6) && IDidNOTComeFrom(xpos, ypos + 1))
+	{
+		S.push(xpos, ypos);
+		ypos++;
+	}
+	else
+	{
+		board[ypos][xpos] = 1;
+		point p;
+		p = S.pop();
+		xpos = p.x;
+		ypos = p.y;
+	}
+
+
+}
+
+void Color(int color)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, color);
+}
+void DisplayMaze()
+{
+	for (int i = 0; i < 25; i++)
+	{
+		for (int j = 0; j < 50; j++)
+		{
+			if ((board[i][j]) == 1)
+			{
+				Color(11);
+				cout << char(219);
+			}
+			else if ((board[i][j]) == 2)
+			{
+				Color(13);
+				cout << char(219);
+			}
+			else if (board[i][j] == 3 || board[i][j] == 4 || board[i][j] == 5 || board[i][j] == 6)
+			{
+				Color(14);
+				cout << "*";
+			}
+			else cout << " ";
+		}
+		cout << endl;
+	}
+}
+
+void DisplayMouse()
+{
+	point p;
+	int peek = 1;
+
+	Color(14);
+	coor.gotoxy(xpos, ypos);
+	cout << char(219);
+	if (flag1)
+	{
+		p = S.peek(1);
+		peek++;
+		coor.gotoxy(p.x, p.y);
+		cout << "*";
+	}
+	if (flag2)
+	{
+		p = S.peek(2);
+		peek++;
+		coor.gotoxy(p.x, p.y);
+		cout << "*";
+	}
+	if (flag3)
+	{
+		p = S.peek(3);
+		peek++;
+		coor.gotoxy(p.x, p.y);
+		cout << "*";
+	}
+	if (flag4)
+	{
+		p = S.peek(4);
+		peek++;
+		coor.gotoxy(p.x, p.y);
+		cout << "*";
+	}
+	//p = S.peek(peek);
+	//coor.gotoxy(p.x, p.y);
+	//Color(15);
+	//cout << ".";
+
+
+}
+
+void HideMouse()
+{
+	coor.gotoxy(xpos, ypos);
+	cout << " ";
+	if (flag1)
+	{
+		point p = S.peek(1);
+		coor.gotoxy(p.x, p.y);
+		cout << " ";
+	}
+	if (flag2)
+	{
+		point p = S.peek(2);
+		coor.gotoxy(p.x, p.y);
+		cout << " ";
+	}
+	if (flag3)
+	{
+		point p = S.peek(3);
+		coor.gotoxy(p.x, p.y);
+		cout << " ";
+	}
+	if (flag4)
+	{
+		point p = S.peek(4);
+		coor.gotoxy(p.x, p.y);
+		cout << " ";
+	}
+}
+
+
+void main()
+{
+	xpos = 0;
+	ypos = 1;
+
+	DisplayMaze();
+
+	while (1)
+	{
+		coor.ShowConsoleCursor(false);
+		DisplayMouse();
+		Sleep(100);
+		HideMouse();
+		MoveMouse();
+		isStar();
+		if (xpos == 49 && ypos == 23)
+		{
+			cout << "win!!!!";
+			break;
+		}
+	}
+	
+
+}
